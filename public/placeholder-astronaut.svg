@@ -1,0 +1,11 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" fill="#1a1a1a"/>
+  <circle cx="150" cy="120" r="50" fill="#4a4a4a"/>
+  <circle cx="150" cy="110" r="35" fill="#666"/>
+  <circle cx="140" cy="105" r="5" fill="#333"/>
+  <circle cx="160" cy="105" r="5" fill="#333"/>
+  <path d="M135 120 Q150 135 165 120" stroke="#333" stroke-width="2" fill="none"/>
+  <rect x="125" y="150" width="50" height="70" rx="25" fill="#4a4a4a"/>
+  <text x="150" y="200" text-anchor="middle" fill="#fff" font-family="Arial" font-size="14">Astronaut</text>
+  <text x="150" y="220" text-anchor="middle" fill="#ccc" font-family="Arial" font-size="12">Image Not Available</text>
+</svg>

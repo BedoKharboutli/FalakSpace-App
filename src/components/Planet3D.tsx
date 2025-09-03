@@ -35,10 +35,12 @@ const Planet3D: React.FC<Planet3DProps> = ({
   try {
     if (planet.textureUrl) {
       texture = useLoader(TextureLoader, planet.textureUrl);
+      console.log(`Loading texture for ${planet.name}:`, planet.textureUrl);
     }
   } catch (error) {
     // Fallback to color if texture fails to load
     console.warn(`Failed to load texture for ${planet.name}:`, error);
+    console.warn('Texture URL:', planet.textureUrl);
     texture = null;
   }
 

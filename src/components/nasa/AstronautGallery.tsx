@@ -501,10 +501,12 @@ const AstronautGallery: React.FC = () => {
                   src={astronaut.profile_image!}
                   alt={astronaut.name}
                   className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
-                  onError={(e) => {
-                    e.currentTarget.src = 'https://via.placeholder.com/300x300/1a1a1a/ffffff?text=No+Image';
-                  }}
-                />
+                                      onError={(e) => {
+                      // Use a data URI SVG as fallback - guaranteed to work
+                      e.currentTarget.src = "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='12'%3EAstronaut%3C/text%3E%3C/svg%3E";
+                      e.currentTarget.alt = 'Astronaut placeholder';
+                    }}
+                  />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {astronaut.wiki && (
@@ -566,3 +568,4 @@ const AstronautGallery: React.FC = () => {
 };
 
 export default AstronautGallery;
+

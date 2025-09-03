@@ -1,0 +1,75 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="moonGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5f5f5;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#cccccc;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="shipGradient" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#e8e8e8;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c8c8c8;stop-opacity:1"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background - Space -->
+  <rect width="400" height="300" fill="#0a0a1a"/>
+
+  <!-- Moon surface -->
+  <ellipse cx="200" cy="280" rx="180" ry="20" fill="url(#moonGradient)"/>
+  <ellipse cx="200" cy="270" rx="170" ry="15" fill="#e8e8e8"/>
+  <ellipse cx="200" cy="265" rx="160" ry="10" fill="#f0f0f0"/>
+
+  <!-- Lunar Module - Apollo 11 -->
+  <rect x="175" y="180" width="50" height="100" rx="5" fill="url(#shipGradient)" stroke="#cccccc" stroke-width="2"/>
+  <rect x="175" y="180" width="50" height="100" rx="5" fill="none" stroke="#aaaaaa" stroke-width="1" opacity="0.5"/>
+
+  <!-- Landing legs -->
+  <line x1="185" y1="280" x2="195" y2="250" stroke="#cccccc" stroke-width="3"/>
+  <line x1="205" y1="280" x2="215" y2="250" stroke="#cccccc" stroke-width="3"/>
+  <line x1="215" y1="280" x2="225" y2="250" stroke="#cccccc" stroke-width="3"/>
+  <line x1="225" y1="280" x2="235" y2="250" stroke="#cccccc" stroke-width="3"/>
+
+  <!-- Landing pads -->
+  <circle cx="195" cy="250" r="8" fill="#aaaaaa"/>
+  <circle cx="215" cy="250" r="8" fill="#aaaaaa"/>
+  <circle cx="225" cy="250" r="8" fill="#aaaaaa"/>
+  <circle cx="235" cy="250" r="8" fill="#aaaaaa"/>
+
+  <!-- Module top section -->
+  <rect x="185" y="170" width="30" height="15" rx="3" fill="#e8e8e8"/>
+  <rect x="185" y="170" width="30" height="15" rx="3" fill="none" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Windows -->
+  <rect x="192" y="172" width="6" height="8" rx="2" fill="#000033" opacity="0.8"/>
+  <rect x="202" y="172" width="6" height="8" rx="2" fill="#000033" opacity="0.8"/>
+  <rect x="212" y="172" width="6" height="8" rx="2" fill="#000033" opacity="0.8"/>
+
+  <!-- American flag -->
+  <rect x="160" y="250" width="2" height="25" fill="#cccccc"/>
+  <rect x="152" y="250" width="10" height="8" fill="#ffffff"/>
+  <rect x="152" y="250" width="10" height="4" fill="#000033"/>
+  <circle cx="154" cy="252" r="0.8" fill="#ffffff"/>
+  <circle cx="156" cy="252" r="0.8" fill="#ffffff"/>
+  <circle cx="158" cy="252" r="0.8" fill="#ffffff"/>
+  <circle cx="160" cy="252" r="0.8" fill="#ffffff"/>
+  <circle cx="154" cy="254" r="0.8" fill="#ffffff"/>
+  <circle cx="156" cy="254" r="0.8" fill="#ffffff"/>
+  <circle cx="158" cy="254" r="0.8" fill="#ffffff"/>
+  <circle cx="160" cy="254" r="0.8" fill="#ffffff"/>
+
+  <!-- Astronaut footprints -->
+  <ellipse cx="170" cy="270" rx="3" ry="1" fill="#888888"/>
+  <ellipse cx="175" cy="268" rx="3" ry="1" fill="#888888"/>
+  <ellipse cx="180" cy="272" rx="3" ry="1" fill="#888888"/>
+
+  <!-- Name Badge -->
+  <rect x="150" y="20" width="100" height="25" rx="5" fill="#ffffff" opacity="0.9"/>
+  <text x="200" y="35" text-anchor="middle" fill="#000033" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Apollo 11 Lunar Module</text>
+
+  <!-- Stars -->
+  <circle cx="50" cy="50" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="350" cy="70" r="1.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="100" cy="100" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="300" cy="150" r="1.2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="250" cy="200" r="1" fill="#ffffff" opacity="0.6"/>
+</svg>

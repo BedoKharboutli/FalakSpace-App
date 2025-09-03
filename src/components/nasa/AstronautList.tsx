@@ -35,7 +35,8 @@ const AstronautList: React.FC = () => {
         // In production, uncomment the line below and use real API
         // const response = await fetchAstronauts(20, 0);
         
-        // Mock astronaut data based on real astronauts
+        // Mock astronaut data with local placeholder images
+        // Using local SVG placeholders to avoid CORS issues with external URLs
         const mockAstronauts: Astronaut[] = [
           {
             id: 1,
@@ -69,8 +70,8 @@ const AstronautList: React.FC = () => {
               parent: null,
               image_url: "https://ll.thespacedevs.com/2.2.0/media/agency_images/national2520aeronautics2520and2520space2520administration_image_20190207032448.jpeg"
             },
-            profile_image: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/neil2520armstrong_image_20181128235841.jpg",
-            profile_image_thumbnail: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/neil2520armstrong_image_20181128235841.jpg",
+            profile_image: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
+            profile_image_thumbnail: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
             flights_count: 2,
             landings_count: 2,
             spacewalks_count: 1,
@@ -109,8 +110,8 @@ const AstronautList: React.FC = () => {
               parent: null,
               image_url: "https://ll.thespacedevs.com/2.2.0/media/agency_images/russian2520federal2520space2520agency25202528roscosmos2529_image_20190207032459.png"
             },
-            profile_image: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/yuri2520gagarin_image_20181106200059.jpg",
-            profile_image_thumbnail: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/yuri2520gagarin_image_20181106200059.jpg",
+            profile_image: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
+            profile_image_thumbnail: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
             flights_count: 1,
             landings_count: 1,
             spacewalks_count: 0,
@@ -149,8 +150,8 @@ const AstronautList: React.FC = () => {
               parent: null,
               image_url: "https://ll.thespacedevs.com/2.2.0/media/agency_images/national2520aeronautics2520and2520space2520administration_image_20190207032448.jpeg"
             },
-            profile_image: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/mae2520jemison_image_20181129000502.jpg",
-            profile_image_thumbnail: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/mae2520jemison_image_20181129000502.jpg",
+            profile_image: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
+            profile_image_thumbnail: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
             flights_count: 1,
             landings_count: 1,
             spacewalks_count: 0,
@@ -189,8 +190,8 @@ const AstronautList: React.FC = () => {
               parent: null,
               image_url: "https://ll.thespacedevs.com/2.2.0/media/agency_images/canadian2520space2520agency_image_20190207032440.jpeg"
             },
-            profile_image: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/chris2520hadfield_image_20181129001503.jpg",
-            profile_image_thumbnail: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/chris2520hadfield_image_20181129001503.jpg",
+            profile_image: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
+            profile_image_thumbnail: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
             flights_count: 3,
             landings_count: 3,
             spacewalks_count: 2,
@@ -229,8 +230,8 @@ const AstronautList: React.FC = () => {
               parent: null,
               image_url: "https://ll.thespacedevs.com/2.2.0/media/agency_images/european2520space2520agency_image_20190207032443.jpeg"
             },
-            profile_image: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/samantha2520cristoforetti_image_20181129003532.jpg",
-            profile_image_thumbnail: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/samantha2520cristoforetti_image_20181129003532.jpg",
+            profile_image: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
+            profile_image_thumbnail: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
             flights_count: 2,
             landings_count: 2,
             spacewalks_count: 1,
@@ -269,8 +270,8 @@ const AstronautList: React.FC = () => {
               parent: null,
               image_url: "https://ll.thespacedevs.com/2.2.0/media/agency_images/european2520space2520agency_image_20190207032443.jpeg"
             },
-            profile_image: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/timothy2520peake_image_20181129005406.jpg",
-            profile_image_thumbnail: "https://ll.thespacedevs.com/2.2.0/media/astronaut_images/timothy2520peake_image_20181129005406.jpg",
+            profile_image: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
+            profile_image_thumbnail: "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='14'%3ENeil Armstrong%3C/text%3E%3C/svg%3E",
             flights_count: 1,
             landings_count: 1,
             spacewalks_count: 1,
@@ -399,7 +400,9 @@ const AstronautList: React.FC = () => {
                     alt={astronaut.name}
                     className="h-16 w-16 rounded-full object-cover border-2 border-primary/30"
                     onError={(e) => {
-                      e.currentTarget.style.display = 'none';
+                      // Use a data URI SVG as fallback - guaranteed to work
+                      e.currentTarget.src = "data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23111827'/%3E%3Ccircle cx='150' cy='120' r='60' fill='%23374151' stroke='%23d1d5db' stroke-width='3'/%3E%3Ccircle cx='150' cy='120' r='40' fill='%23000' opacity='0.3'/%3E%3Crect x='120' y='180' width='60' height='80' rx='30' fill='%23f3f4f6' stroke='%239ca3af' stroke-width='2'/%3E%3Ccircle cx='140' cy='210' r='10' fill='%232563eb'/%3E%3Ctext x='140' y='215' text-anchor='middle' fill='white' font-size='8'%3ENASA%3C/text%3E%3Ctext x='150' y='280' text-anchor='middle' fill='white' font-size='12'%3EAstronaut%3C/text%3E%3C/svg%3E";
+                      e.currentTarget.alt = 'Astronaut placeholder';
                     }}
                   />
                 )}
