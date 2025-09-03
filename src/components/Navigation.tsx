@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Heart, User, Rocket, Search } from 'lucide-react';
+import { Home, Heart, User, Rocket, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navigation = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { user, logout, isAuthenticated } = useAuth();
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
@@ -57,16 +59,35 @@ const Navigation = () => {
 
             {/* Auth Buttons */}
             <div className="flex items-center space-x-2">
-              <Link to="/login">
-                <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10">
-                  Login
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button size="sm" className="cosmic-glow">
-                  Register
-                </Button>
-              </Link>
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-white/80 hidden sm:block">
+                    Welcome, {user?.name}
+                  </span>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={logout}
+                    className="border-primary/30 hover:bg-primary/10"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button size="sm" className="cosmic-glow">
+                      Register
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 

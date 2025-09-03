@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -6,34 +6,87 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { X, Heart, Save, Globe, Thermometer, Clock, Mountain } from 'lucide-react';
 import { planetData } from '../data/planetData';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 
 interface PlanetInfoPanelProps {
   planetId: string;
   onClose: () => void;
-  isFavorited?: boolean;
-  onToggleFavorite?: (planetId: string) => void;
 }
 
 const PlanetInfoPanel: React.FC<PlanetInfoPanelProps> = ({
   planetId,
   onClose,
-  isFavorited = false,
-  onToggleFavorite
 }) => {
   const [userNotes, setUserNotes] = useState('');
   const [isSavingNotes, setIsSavingNotes] = useState(false);
+  const { isFavorited, addFavorite, removeFavorite, saveNote, getNote, isAuthenticated } = useAuth();
+  const { toast } = useToast();
   
   const planet = planetData.find(p => p.id === planetId);
+  const isPlanetFavorited = isFavorited(planetId);
+
+  useEffect(() => {
+    // Load existing note when component mounts
+    setUserNotes(getNote(planetId));
+  }, [planetId, getNote]);
 
   if (!planet) return null;
 
+  const handleToggleFavorite = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Login Required",
+        description: "Please login to manage favorites",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (isPlanetFavorited) {
+      removeFavorite(planetId);
+      toast({
+        title: "Removed from Favorites",
+        description: `${planet.name} has been removed from your favorites`,
+      });
+    } else {
+      addFavorite(planetId);
+      toast({
+        title: "Added to Favorites",
+        description: `${planet.name} has been added to your favorites`,
+      });
+    }
+  };
+
   const handleSaveNotes = async () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Login Required",
+        description: "Please login to save notes",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSavingNotes(true);
-    // Simulate saving notes
+    
+    const success = saveNote(planetId, userNotes);
+    
     setTimeout(() => {
       setIsSavingNotes(false);
-      console.log('Notes saved:', userNotes);
-    }, 1000);
+      if (success) {
+        toast({
+          title: "Notes Saved",
+          description: "Your notes have been saved successfully",
+        });
+      } else {
+        toast({
+          title: "Save Failed",
+          description: "Failed to save notes",
+          variant: "destructive",
+        });
+      }
+    }, 500);
   };
 
   return (
@@ -71,17 +124,17 @@ const PlanetInfoPanel: React.FC<PlanetInfoPanelProps> = ({
 
               {/* Quick Actions */}
               <div className="flex space-x-2">
-                <Button 
-                  onClick={() => onToggleFavorite?.(planetId)}
-                  variant={isFavorited ? "default" : "outline"}
-                  size="sm"
-                  className={`flex-1 transition-all duration-300 ${
-                    isFavorited ? 'cosmic-glow' : 'hover:bg-primary/10'
-                  }`}
-                >
-                  <Heart className={`h-3 w-3 mr-2 ${isFavorited ? 'fill-current' : ''}`} />
-                  {isFavorited ? 'Favorited' : 'Add to Favorites'}
-                </Button>
+                               <Button 
+                 onClick={handleToggleFavorite}
+                 variant={isPlanetFavorited ? "default" : "outline"}
+                 size="sm"
+                 className={`flex-1 transition-all duration-300 ${
+                   isPlanetFavorited ? 'cosmic-glow' : 'hover:bg-primary/10'
+                 }`}
+               >
+                 <Heart className={`h-3 w-3 mr-2 ${isPlanetFavorited ? 'fill-current' : ''}`} />
+                 {isPlanetFavorited ? 'Favorited' : 'Add to Favorites'}
+               </Button>
               </div>
 
               {/* Physical Characteristics */}

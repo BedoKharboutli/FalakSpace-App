@@ -193,8 +193,6 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
         <PlanetInfoPanel
           planetId={selectedPlanet}
           onClose={() => onPlanetSelect?.(null)}
-          isFavorited={favoritePlanets.includes(selectedPlanet)}
-          onToggleFavorite={onToggleFavorite}
         />
       )}
 
