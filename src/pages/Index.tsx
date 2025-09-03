@@ -1,6 +1,7 @@
 import React, { useState, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
+import NASADataSection from '@/components/nasa/NASADataSection';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -85,6 +86,8 @@ const Index = () => {
         />
       </Suspense>
 
+      {/* NASA Data Section - appears when user scrolls down */}
+      <NASADataSection />
       
     </div>
   );
