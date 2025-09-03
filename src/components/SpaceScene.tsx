@@ -110,21 +110,43 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
 
   return (
     <div className="relative w-full h-screen bg-black">
-      <Canvas
-        camera={{ position: [50, 30, 50], fov: 60 }}
-        onCreated={({ camera, gl }) => {
-          camera.lookAt(0, 0, 0);
-          gl.setClearColor('#000000');
-        }}
-      >
-        {/* Lighting */}
-        <ambientLight intensity={0.2} />
-        <pointLight position={[0, 0, 0]} intensity={1} color="#FFFF99" />
-        <directionalLight
-          position={[100, 100, 100]}
-          intensity={0.5}
-          color="#FFFFFF"
-        />
+                <Canvas
+            camera={{ position: [50, 30, 50], fov: 60 }}
+            onCreated={({ camera, gl }) => {
+              camera.lookAt(0, 0, 0);
+              gl.setClearColor('#000011'); // Deep space color
+              gl.shadowMap.enabled = true;
+              gl.shadowMap.type = 2; // PCFSoftShadowMap
+            }}
+          >
+            {/* Enhanced Lighting */}
+            <ambientLight intensity={0.15} color="#112244" />
+            
+            {/* Sun Light */}
+            <pointLight 
+              position={[0, 0, 0]} 
+              intensity={2} 
+              color="#FFFF99" 
+              distance={100}
+              decay={2}
+              castShadow
+              shadow-mapSize={[2048, 2048]}
+              shadow-camera-near={0.1}
+              shadow-camera-far={200}
+            />
+            
+            {/* Additional directional light for better illumination */}
+            <directionalLight
+              position={[50, 50, 50]}
+              intensity={0.3}
+              color="#FFFFFF"
+              castShadow
+              shadow-mapSize={[1024, 1024]}
+              shadow-camera-left={-50}
+              shadow-camera-right={50}
+              shadow-camera-top={50}
+              shadow-camera-bottom={-50}
+            />
 
         {/* Stars Background */}
         <Stars 
@@ -136,22 +158,40 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
           fade={true}
         />
 
-        {/* Sun at Center */}
-        <mesh position={[0, 0, 0]}>
-          <sphereGeometry args={[2, 32, 32]} />
-          <meshBasicMaterial color="#FFD700" />
-        </mesh>
+                    {/* Enhanced Sun */}
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[2.5, 64, 64]} />
+              <meshStandardMaterial 
+                color="#FFDD44" 
+                emissive="#FF8800"
+                emissiveIntensity={0.8}
+                transparent
+                opacity={0.9}
+              />
+            </mesh>
+            
+            {/* Sun Corona Effect */}
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[3.2, 32, 32]} />
+              <meshBasicMaterial 
+                color="#FFAA00" 
+                transparent 
+                opacity={0.15}
+              />
+            </mesh>
 
-        {/* Sun Label */}
-        <Text
-          position={[0, -4, 0]}
-          fontSize={1}
-          color="#FFD700"
-          anchorX="center"
-          anchorY="middle"
-        >
-          Sun
-        </Text>
+            {/* Sun Label */}
+            <Text
+              position={[0, -5, 0]}
+              fontSize={1.2}
+              color="#FFD700"
+              anchorX="center"
+              anchorY="middle"
+              outlineWidth={0.1}
+              outlineColor="#000000"
+            >
+              Sun
+            </Text>
 
         {/* Planets */}
         {planetData.map((planet) => (
