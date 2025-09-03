@@ -23,7 +23,7 @@ const Favorites = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-black">
         <Navigation />
         
         <div className="min-h-screen bg-cosmic-gradient flex items-center justify-center">
@@ -59,7 +59,7 @@ const Favorites = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Navigation />
       
       <div className="container mx-auto px-4 py-12">

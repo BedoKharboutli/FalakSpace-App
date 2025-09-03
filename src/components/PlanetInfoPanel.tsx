@@ -126,7 +126,7 @@ const PlanetInfoPanel: React.FC<PlanetInfoPanelProps> = ({
               <div className="flex space-x-2">
                                <Button 
                  onClick={handleToggleFavorite}
-                 variant={isPlanetFavorited ? "default" : "outline"}
+                 
                  size="sm"
                  className={`flex-1 transition-all duration-300 ${
                    isPlanetFavorited ? 'cosmic-glow' : 'hover:bg-primary/10'
