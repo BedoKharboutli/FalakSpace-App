@@ -30,10 +30,10 @@ const Navigation = () => {
               </div>
               <div>
                 <h1 className="text-xl font-orbitron font-bold nebula-text">
-                  Cosmic Explorer
+                  FALAK SPACE
                 </h1>
-                <p className="text-xs text-muted-foreground">NASA Planet Data</p>
-              </div>
+                <p className="text-xl text-muted-foreground">FALAK SPACE</p>
+                </div>
             </Link>
 
             {/* Desktop Navigation */}

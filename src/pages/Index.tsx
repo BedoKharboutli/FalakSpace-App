@@ -72,6 +72,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black">
+      
       <Navigation />
       
       {/* 3D Space Scene with Error Boundary */}
@@ -84,24 +85,7 @@ const Index = () => {
         />
       </Suspense>
 
-      {/* Welcome Overlay - Shows only on first visit */}
-      {!selectedPlanet && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center animate-fade-in pointer-events-none">
-          <div className="space-y-4 max-w-lg mx-auto">
-            <h1 className="text-4xl md:text-6xl font-orbitron font-bold nebula-text">
-              Cosmic Explorer
-            </h1>
-            <p className="text-lg text-white/80">
-              Navigate through space • Click planets to explore • Use mouse to control camera
-            </p>
-            <div className="text-sm text-white/60 space-y-1">
-              <p>🖱️ Mouse: Click & drag to rotate, scroll to zoom</p>
-              <p>⌨️ Keys: WASD or Arrow keys to move around</p>
-              <p>🪐 Click any planet to see detailed information</p>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 };
