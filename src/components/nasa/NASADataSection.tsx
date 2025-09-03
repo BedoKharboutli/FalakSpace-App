@@ -294,9 +294,7 @@ const NASADataSection: React.FC = () => {
           }`}
         >
           <div className="glass-card border-white/10 bg-black/20 backdrop-blur-lg p-8 rounded-lg">
-            <h3 className="text-2xl font-orbitron font-semibold text-primary mb-6">
-              Connect With Me
-            </h3>
+            
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
               Follow me on social media to stay updated with my latest projects.
             </p>
