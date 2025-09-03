@@ -1,22 +1,11 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Home, Heart, User, Rocket, LogOut } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Home, Rocket, LogOut, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Navigation = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const { user, logout, isAuthenticated } = useAuth();
-
-  const navItems = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/favorites', label: 'Favorites', icon: Heart },
-    { path: '/profile', label: 'Profile', icon: User },
-  ];
-
-  const isActive = (path: string) => currentPath === path;
 
   return (
     <header className="relative z-50 backdrop-blur-lg border-b border-white/10">
@@ -32,29 +21,37 @@ const Navigation = () => {
                 <h1 className="text-xl font-orbitron font-bold nebula-text">
                   FALAK SPACE
                 </h1>
-                <p className="text-xl text-muted-foreground">FALAK SPACE</p>
+                <p className="text-xl text-muted-foreground font-serif -translate-y-3">
+  FALAK SPACE
+</p>
                 </div>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-1">
-              {navItems.map(({ path, label, icon: Icon }) => (
-                <Link key={path} to={path}>
-                  <Button
-                    variant={isActive(path) ? 'default' : 'ghost'}
-                    size="sm"
-                    className={cn(
-                      'transition-all duration-300 hover:cosmic-glow',
-                      isActive(path) 
-                        ? 'bg-primary/20 text-primary border-primary/30' 
-                        : 'hover:bg-primary/10 hover:text-primary'
-                    )}
-                  >
-                    <Icon className="h-4 w-4 mr-2" />
-                    {label}
-                  </Button>
-                </Link>
-              ))}
+              {/* Home Button */}
+              <Link to="/">
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="bg-primary/20 text-primary border-primary/30 hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
+                >
+                  <Home className="h-4 w-4 mr-2" />
+                  Home
+                </Button>
+              </Link>
+
+              {/* Favorites Button */}
+              <Link to="/favorites">
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="bg-primary/20 text-primary border-primary/30 hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
+                >
+                  <Heart className="h-4 w-4 mr-2" />
+                  Favorites
+                </Button>
+              </Link>
             </nav>
 
             {/* Auth Buttons */}
@@ -93,23 +90,29 @@ const Navigation = () => {
 
           {/* Mobile Navigation */}
           <nav className="md:hidden mt-4 flex justify-center space-x-1">
-            {navItems.map(({ path, label, icon: Icon }) => (
-              <Link key={path} to={path}>
-                <Button
-                  variant={isActive(path) ? 'default' : 'ghost'}
-                  size="sm"
-                  className={cn(
-                    'flex-col h-auto py-2 px-3',
-                    isActive(path) 
-                      ? 'bg-primary/20 text-primary' 
-                      : 'hover:bg-primary/10 hover:text-primary'
-                  )}
-                >
-                  <Icon className="h-4 w-4 mb-1" />
-                  <span className="text-xs">{label}</span>
-                </Button>
-              </Link>
-            ))}
+            {/* Home Button */}
+            <Link to="/">
+              <Button
+                variant="default"
+                size="sm"
+                className="flex-col h-auto py-2 px-3 bg-primary/20 text-primary hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
+              >
+                <Home className="h-4 w-4 mb-1" />
+                <span className="text-xs">Home</span>
+              </Button>
+            </Link>
+
+            {/* Favorites Button */}
+            <Link to="/favorites">
+              <Button
+                variant="default"
+                size="sm"
+                className="flex-col h-auto py-2 px-3 bg-primary/20 text-primary hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
+              >
+                <Home className="h-4 w-4 mb-1" />
+                <span className="text-xs">Favorites</span>
+              </Button>
+            </Link>
           </nav>
         </div>
       </div>

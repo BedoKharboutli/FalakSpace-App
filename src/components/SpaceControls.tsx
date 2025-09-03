@@ -49,7 +49,7 @@ const SpaceControls: React.FC<SpaceControlsProps> = ({
                 <Button
                   onClick={onBackToOverview}
                   disabled={isTransitioning}
-                  variant="outline"
+                  variant=""
                   size="sm"
                   className="w-full justify-start border-primary/30 hover:bg-primary/10"
                 >
@@ -72,7 +72,10 @@ const SpaceControls: React.FC<SpaceControlsProps> = ({
               {planetData.slice(0, 8).map((planet) => (
                 <Button
                   key={planet.id}
-                  onClick={() => onFocusPlanet(planet.id)}
+                  onClick={() => {
+                    console.log('Quick Planet Access button clicked for:', planet.name);
+                    onFocusPlanet(planet.id);
+                  }}
                   disabled={isTransitioning}
                   variant={selectedPlanet === planet.id ? "default" : "ghost"}
                   size="sm"

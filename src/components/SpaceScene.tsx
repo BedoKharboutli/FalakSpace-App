@@ -26,44 +26,77 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
 
   const handlePlanetClick = (planetId: string, position: Vector3) => {
     if (isTransitioning) return;
-    
+
     setIsTransitioning(true);
     onPlanetSelect?.(planetId);
-    
-    // Smoothly move camera to planet
+
+    // Center the planet in the camera view
     if (controlsRef.current) {
+      // Disable damping temporarily for instant camera movement
+      controlsRef.current.enableDamping = false;
+
+      // Set camera target to planet position (centers the planet)
       controlsRef.current.target.copy(position);
+      
+      // Position camera at a good viewing distance and angle
+      const distance = 8; // Closer distance for better planet viewing
       controlsRef.current.object.position.set(
-        position.x + 15,
-        position.y + 10,
-        position.z + 15
+        position.x + distance,
+        position.y + distance * 0.6,
+        position.z + distance
       );
+      
+      // Force immediate update
       controlsRef.current.update();
+
+      // Re-enable damping after a short delay
+      setTimeout(() => {
+        if (controlsRef.current) {
+          controlsRef.current.enableDamping = true;
+        }
+      }, 100);
     }
 
-    setTimeout(() => setIsTransitioning(false), 1000);
+    // Increase timeout to allow for proper camera movement
+    setTimeout(() => setIsTransitioning(false), 1500);
   };
 
   const handleBackToOverview = () => {
     if (isTransitioning) return;
-    
+
     setIsTransitioning(true);
     onPlanetSelect?.(null);
-    
+
     // Return to overview position
     if (controlsRef.current) {
+      // Disable damping temporarily for instant camera movement
+      controlsRef.current.enableDamping = false;
+
       controlsRef.current.target.set(0, 0, 0);
       controlsRef.current.object.position.set(50, 30, 50);
       controlsRef.current.update();
+
+      // Re-enable damping after a short delay
+      setTimeout(() => {
+        if (controlsRef.current) {
+          controlsRef.current.enableDamping = true;
+        }
+      }, 100);
     }
 
-    setTimeout(() => setIsTransitioning(false), 1000);
+    setTimeout(() => setIsTransitioning(false), 1500);
   };
 
   const focusOnPlanet = (planetId: string) => {
+    console.log('Quick Planet Access: Focusing on planet:', planetId);
     const planet = planetData.find(p => p.id === planetId);
     if (planet && planet.position) {
-      handlePlanetClick(planetId, new Vector3(...planet.position));
+      console.log('Planet found:', planet.name, 'at position:', planet.position);
+      const positionVector = new Vector3(...planet.position);
+      console.log('Position vector:', positionVector);
+      handlePlanetClick(planetId, positionVector);
+    } else {
+      console.error('Planet not found or missing position:', planetId);
     }
   };
 
@@ -122,12 +155,12 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
             {/* Enhanced Lighting */}
             <ambientLight intensity={0.15} color="#112244" />
             
-            {/* Sun Light */}
+            {/* Sun Light - More realistic color temperature */}
             <pointLight 
               position={[0, 0, 0]} 
-              intensity={2} 
-              color="#FFFF99" 
-              distance={100}
+              intensity={2.2} 
+              color="#FFF8DC" 
+              distance={120}
               decay={2}
               castShadow
               shadow-mapSize={[2048, 2048]}
@@ -158,25 +191,62 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
           fade={true}
         />
 
-                    {/* Enhanced Sun */}
+            {/* Realistic Sun with Multiple Layers */}
+            
+            {/* Sun Core - Brightest center */}
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[2.2, 64, 64]} />
+              <meshBasicMaterial 
+                color="#FFF5B7"
+                transparent
+                opacity={1.0}
+              />
+            </mesh>
+
+            {/* Sun Surface - Main visible layer */}
             <mesh position={[0, 0, 0]}>
               <sphereGeometry args={[2.5, 64, 64]} />
               <meshStandardMaterial 
-                color="#FFDD44" 
-                emissive="#FF8800"
-                emissiveIntensity={0.8}
+                color="#FFD700"
+                emissive="#FFA500"
+                emissiveIntensity={0.6}
+                roughness={1.0}
+                metalness={0.0}
                 transparent
-                opacity={0.9}
+                opacity={0.95}
               />
             </mesh>
-            
-            {/* Sun Corona Effect */}
+
+            {/* Sun Chromosphere - Middle atmosphere layer */}
             <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[3.2, 32, 32]} />
+              <sphereGeometry args={[2.8, 48, 48]} />
               <meshBasicMaterial 
-                color="#FFAA00" 
+                color="#FF6B35"
                 transparent 
-                opacity={0.15}
+                opacity={0.3}
+                side={2}
+              />
+            </mesh>
+
+            {/* Sun Corona - Outer atmosphere */}
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[3.5, 32, 32]} />
+              <meshBasicMaterial 
+                color="#FFE5B4"
+                transparent 
+                opacity={0.08}
+                side={2}
+              />
+            </mesh>
+
+            {/* Sun Solar Flares - Dynamic outer glow */}
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[4.0, 24, 24]} />
+              <meshBasicMaterial 
+                color="#FFAA44"
+                transparent 
+                opacity={0.04}
+                side={2}
               />
             </mesh>
 
