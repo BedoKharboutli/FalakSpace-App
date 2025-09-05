@@ -1,11 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Rocket, LogOut, Heart } from 'lucide-react';
+import { Home, Rocket, LogOut, Heart, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Navigation = () => {
   const { user, logout, isAuthenticated } = useAuth();
+
+  const scrollToDiscover = () => {
+    const nasaSection = document.querySelector('[data-section="nasa-data"]');
+    if (nasaSection) {
+      nasaSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
     <header className="relative z-50 backdrop-blur-lg border-b border-white/10">
@@ -52,6 +62,17 @@ const Navigation = () => {
                   Favorites
                 </Button>
               </Link>
+
+              {/* Discover Button */}
+              <Button
+                onClick={scrollToDiscover}
+                variant="default"
+                size="sm"
+                className="bg-primary/20 text-primary border-primary/30 hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
+              >
+                <Compass className="h-4 w-4 mr-2" />
+                Discover
+              </Button>
             </nav>
 
             {/* Auth Buttons */}
@@ -109,10 +130,21 @@ const Navigation = () => {
                 size="sm"
                 className="flex-col h-auto py-2 px-3 bg-primary/20 text-primary hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
               >
-                <Home className="h-4 w-4 mb-1" />
+                <Heart className="h-4 w-4 mb-1" />
                 <span className="text-xs">Favorites</span>
               </Button>
             </Link>
+
+            {/* Discover Button */}
+            <Button
+              onClick={scrollToDiscover}
+              variant="default"
+              size="sm"
+              className="flex-col h-auto py-2 px-3 bg-primary/20 text-primary hover:bg-primary/30 hover:text-primary transition-all duration-300 hover:cosmic-glow"
+            >
+              <Compass className="h-4 w-4 mb-1" />
+              <span className="text-xs">Discover</span>
+            </Button>
           </nav>
         </div>
       </div>

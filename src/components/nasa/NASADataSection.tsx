@@ -136,6 +136,7 @@ const NASADataSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
+      data-section="nasa-data"
       className={`min-h-screen bg-gradient-to-b from-black via-space-gray/20 to-black py-16 transition-all duration-1000 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
