@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars, Text } from '@react-three/drei';
 import { Vector3 } from 'three';
 import Planet3D from './Planet3D';
+import Sun3D from './Sun3D';
 import PlanetInfoPanel from './PlanetInfoPanel';
 import SpaceControls from './SpaceControls';
 import { planetData } from '../data/planetData';
@@ -192,64 +193,8 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
           fade={true}
         />
 
-            {/* Realistic Sun with Multiple Layers */}
-            
-            {/* Sun Core - Brightest center */}
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[2.2, 64, 64]} />
-              <meshBasicMaterial 
-                color="#FFF5B7"
-                transparent
-                opacity={1.0}
-              />
-            </mesh>
-
-            {/* Sun Surface - Main visible layer */}
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[2.5, 64, 64]} />
-              <meshStandardMaterial 
-                color="#FFD700"
-                emissive="#FFA500"
-                emissiveIntensity={0.6}
-                roughness={1.0}
-                metalness={0.0}
-                transparent
-                opacity={0.95}
-              />
-            </mesh>
-
-            {/* Sun Chromosphere - Middle atmosphere layer */}
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[2.8, 48, 48]} />
-              <meshBasicMaterial 
-                color="#FF6B35"
-                transparent 
-                opacity={0.3}
-                side={2}
-              />
-            </mesh>
-
-            {/* Sun Corona - Outer atmosphere */}
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[3.5, 32, 32]} />
-              <meshBasicMaterial 
-                color="#FFE5B4"
-                transparent 
-                opacity={0.08}
-                side={2}
-              />
-            </mesh>
-
-            {/* Sun Solar Flares - Dynamic outer glow */}
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[4.0, 24, 24]} />
-              <meshBasicMaterial 
-                color="#FFAA44"
-                transparent 
-                opacity={0.04}
-                side={2}
-              />
-            </mesh>
+            {/* Professional Realistic Sun */}
+            <Sun3D position={[0, 0, 0]} scale={1} />
 
             {/* Sun Label */}
             <Text
