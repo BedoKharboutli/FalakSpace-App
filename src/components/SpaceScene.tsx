@@ -142,7 +142,8 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
   }, [isTransitioning]);
 
   return (
-    <div className="relative w-full h-screen bg-black">
+    <>
+    <div className="relative w-full h-[65vh] bg-black">
                 <Canvas
             camera={{ position: [50, 30, 50], fov: 60 }}
             onCreated={({ camera, gl }) => {
@@ -316,7 +317,64 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
           <p>• ESC to return to overview</p>
         </div>
       </div>
+
+     
     </div>
+      {/* Modern Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center group cursor-pointer transition-all duration-500 hover:scale-105">
+        <div className="relative">
+          {/* Outer Glow Ring */}
+          <div className="absolute inset-0 w-20 h-20 border border-primary/20 rounded-full animate-pulse opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+          
+          
+          
+          {/* Central Content */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm rounded-full border border-white/10">
+            <div className="text-[10px] font-orbitron font-bold text-transparent bg-gradient-to-r from-primary via-blue-400 to-purple-400 bg-clip-text animate-pulse tracking-wider">DISCOVER</div>
+            <div className="flex space-x-1 mt-1">
+              <div className="w-1 h-1 bg-gradient-to-r from-primary to-blue-400 rounded-full animate-bounce shadow-sm"></div>
+              <div className="w-1 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-bounce shadow-sm" style={{animationDelay: '0.15s'}}></div>
+              <div className="w-1 h-1 bg-gradient-to-r from-purple-400 to-primary rounded-full animate-bounce shadow-sm" style={{animationDelay: '0.3s'}}></div>
+            </div>
+          </div>
+          
+          {/* Enhanced Glow Effects */}
+          <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent rounded-full blur-xl group-hover:from-primary/20 transition-all duration-500"></div>
+          <div className="absolute inset-0 bg-gradient-radial from-blue-400/5 via-transparent to-transparent rounded-full blur-2xl animate-pulse"></div>
+        </div>
+        
+        {/* Enhanced Text Section */}
+        <div className="mt-4 space-y-1 backdrop-blur-sm bg-black/20 rounded-lg px-3 py-2 border border-white/10 group-hover:border-primary/30 transition-all duration-300">
+          <div className="text-xs font-orbitron font-bold text-transparent bg-gradient-to-r from-white via-primary to-blue-400 bg-clip-text group-hover:from-primary group-hover:via-blue-400 group-hover:to-purple-400 transition-all duration-300 tracking-wider">NASA MISSIONS</div>
+          <div className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300 font-medium">& SPACE DATA</div>
+        </div>
+        
+        {/* Enhanced Animated Arrow */}
+        <div className="mt-3 flex justify-center">
+          <div className="relative">
+            <svg 
+              className="w-5 h-7 text-primary/80 group-hover:text-primary animate-bounce drop-shadow-lg group-hover:drop-shadow-xl transition-all duration-300" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+            {/* Arrow Glow */}
+            <div className="absolute inset-0 w-5 h-7 blur-sm opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+              <svg 
+                className="w-5 h-7 text-primary/40" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+   </>
   );
 };
 
