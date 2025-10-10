@@ -1,12 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars, Text } from '@react-three/drei';
+import { OrbitControls, Text } from '@react-three/drei';
 import { Vector3 } from 'three';
 import Planet3D from './Planet3D';
 import Sun3D from './Sun3D';
 import PlanetInfoPanel from './PlanetInfoPanel';
 import SpaceControls from './SpaceControls';
+import DynamicStarfield from './DynamicStarfield';
+import EnhancedSpaceControls from './EnhancedSpaceControls';
+import MotionSettingsPanel, { MotionSettings } from './MotionSettings';
 import { planetData } from '../data/planetData';
+import { Button } from '@/components/ui/button';
+import { Settings, Navigation as NavigationIcon } from 'lucide-react';
 
 interface SpaceSceneProps {
   onPlanetSelect?: (planetId: string | null) => void;
@@ -24,6 +29,16 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
   const controlsRef = useRef<any>();
   const [cameraTarget, setCameraTarget] = useState(new Vector3(0, 0, 0));
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showMotionSettings, setShowMotionSettings] = useState(false);
+  const [motionSettings, setMotionSettings] = useState<MotionSettings>({
+    reduceMotion: false,
+    disableParallax: false,
+    disableTwinkle: false,
+    animationSpeed: 1.0,
+    enableSmoothTransitions: true,
+    starfieldDensity: 1.0
+  });
+  const [navigationMode, setNavigationMode] = useState<'orbit' | 'free'>('orbit');
 
   const handlePlanetClick = (planetId: string, position: Vector3) => {
     if (isTransitioning) return;
@@ -31,35 +46,34 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
     setIsTransitioning(true);
     onPlanetSelect?.(planetId);
 
-    // Center the planet in the camera view
+    // Enhanced smooth transition to planet
     if (controlsRef.current) {
-      // Disable damping temporarily for instant camera movement
-      controlsRef.current.enableDamping = false;
-
-      // Set camera target to planet position (centers the planet)
-      controlsRef.current.target.copy(position);
-      
-      // Position camera at a good viewing distance and angle
-      const distance = 8; // Closer distance for better planet viewing
-      controlsRef.current.object.position.set(
+      const distance = 8;
+      const targetPosition = new Vector3(
         position.x + distance,
         position.y + distance * 0.6,
         position.z + distance
       );
       
-      // Force immediate update
-      controlsRef.current.update();
-
-      // Re-enable damping after a short delay
-      setTimeout(() => {
-        if (controlsRef.current) {
-          controlsRef.current.enableDamping = true;
-        }
-      }, 100);
+      if (motionSettings.enableSmoothTransitions && controlsRef.current.smoothTransitionTo) {
+        // Use smooth transition if available and enabled
+        controlsRef.current.smoothTransitionTo(targetPosition, position, 1500 / motionSettings.animationSpeed);
+        setTimeout(() => setIsTransitioning(false), 1500 / motionSettings.animationSpeed);
+      } else {
+        // Fallback to instant movement
+        controlsRef.current.enableDamping = false;
+        controlsRef.current.target.copy(position);
+        controlsRef.current.object.position.copy(targetPosition);
+        controlsRef.current.update();
+        
+        setTimeout(() => {
+          if (controlsRef.current) {
+            controlsRef.current.enableDamping = true;
+          }
+          setIsTransitioning(false);
+        }, 100);
+      }
     }
-
-    // Increase timeout to allow for proper camera movement
-    setTimeout(() => setIsTransitioning(false), 1500);
   };
 
   const handleBackToOverview = () => {
@@ -68,24 +82,28 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
     setIsTransitioning(true);
     onPlanetSelect?.(null);
 
-    // Return to overview position
+    // Enhanced smooth transition back to overview
     if (controlsRef.current) {
-      // Disable damping temporarily for instant camera movement
-      controlsRef.current.enableDamping = false;
-
-      controlsRef.current.target.set(0, 0, 0);
-      controlsRef.current.object.position.set(50, 30, 50);
-      controlsRef.current.update();
-
-      // Re-enable damping after a short delay
-      setTimeout(() => {
-        if (controlsRef.current) {
-          controlsRef.current.enableDamping = true;
-        }
-      }, 100);
+      const overviewPosition = new Vector3(50, 30, 50);
+      const overviewTarget = new Vector3(0, 0, 0);
+      
+      if (motionSettings.enableSmoothTransitions && controlsRef.current.smoothTransitionTo) {
+        controlsRef.current.smoothTransitionTo(overviewPosition, overviewTarget, 1500 / motionSettings.animationSpeed);
+        setTimeout(() => setIsTransitioning(false), 1500 / motionSettings.animationSpeed);
+      } else {
+        controlsRef.current.enableDamping = false;
+        controlsRef.current.target.copy(overviewTarget);
+        controlsRef.current.object.position.copy(overviewPosition);
+        controlsRef.current.update();
+        
+        setTimeout(() => {
+          if (controlsRef.current) {
+            controlsRef.current.enableDamping = true;
+          }
+          setIsTransitioning(false);
+        }, 100);
+      }
     }
-
-    setTimeout(() => setIsTransitioning(false), 1500);
   };
 
   const focusOnPlanet = (planetId: string) => {
@@ -101,46 +119,32 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
     }
   };
 
+  // Handle camera movement callback
+  const handleCameraMove = (position: Vector3, target: Vector3) => {
+    setCameraTarget(target);
+  };
+
+  // Handle motion settings changes
+  const handleMotionSettingsChange = (newSettings: MotionSettings) => {
+    setMotionSettings(newSettings);
+  };
+
+  // Toggle navigation mode
+  const toggleNavigationMode = () => {
+    setNavigationMode(prev => prev === 'orbit' ? 'free' : 'orbit');
+  };
+
+  // Add keyboard navigation for ESC key
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (isTransitioning || !controlsRef.current) return;
-
-      const moveDistance = 5;
-      const position = controlsRef.current.object.position;
-      const target = controlsRef.current.target;
-
-      switch (e.key.toLowerCase()) {
-        case 'arrowup':
-        case 'w':
-          position.z -= moveDistance;
-          target.z -= moveDistance;
-          break;
-        case 'arrowdown':
-        case 's':
-          position.z += moveDistance;
-          target.z += moveDistance;
-          break;
-        case 'arrowleft':
-        case 'a':
-          position.x -= moveDistance;
-          target.x -= moveDistance;
-          break;
-        case 'arrowright':
-        case 'd':
-          position.x += moveDistance;
-          target.x += moveDistance;
-          break;
-        case 'escape':
-          handleBackToOverview();
-          break;
+      if (e.key === 'Escape') {
+        handleBackToOverview();
       }
-      
-      controlsRef.current.update();
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isTransitioning]);
+  }, []);
 
   return (
     <>
@@ -183,14 +187,14 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
               shadow-camera-bottom={-50}
             />
 
-        {/* Stars Background */}
-        <Stars 
-          radius={300} 
-          depth={50} 
-          count={5000} 
-          factor={4} 
-          saturation={0} 
-          fade={true}
+        {/* Enhanced Dynamic Starfield */}
+        <DynamicStarfield
+          count={Math.round(1500 * motionSettings.starfieldDensity)}
+          radius={400}
+          depth={120}
+          speed={0.0005 * motionSettings.animationSpeed}
+          enableTwinkle={!motionSettings.disableTwinkle && !motionSettings.reduceMotion}
+          enableParallax={!motionSettings.disableParallax && !motionSettings.reduceMotion}
         />
 
             {/* Professional Realistic Sun */}
@@ -226,13 +230,14 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
-          zoomSpeed={0.6}
-          panSpeed={0.8}
-          rotateSpeed={0.4}
+          zoomSpeed={0.8}
+          panSpeed={1.0}
+          rotateSpeed={0.5}
           minDistance={10}
-          maxDistance={200}
+          maxDistance={300}
           enableDamping={true}
           dampingFactor={0.05}
+          makeDefault
         />
       </Canvas>
 
@@ -252,14 +257,40 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
         />
       )}
 
-      {/* Instructions */}
+
+      {/* Enhanced Instructions */}
       <div className="absolute bottom-4 left-4 glass-card p-4 max-w-sm">
         <h3 className="font-orbitron font-bold text-sm mb-2 text-primary">Navigation</h3>
         <div className="text-xs text-muted-foreground space-y-1">
           <p>• Mouse: Click & drag to rotate, scroll to zoom</p>
-          <p>• Keys: WASD or Arrow keys to move</p>
+          {navigationMode === 'free' && (
+            <p>• Keys: WASD/Arrow keys for free movement, Space/Shift for up/down</p>
+          )}
           <p>• Click planets to explore details</p>
+          <p>• Touch: Pinch to zoom, drag to rotate</p>
           <p>• ESC to return to overview</p>
+        </div>
+        
+        {/* Visual Status Indicators */}
+        <div className="mt-3 pt-2 border-t border-white/10">
+          <div className="flex items-center justify-between text-xs">
+            <span>Mode:</span>
+            <span className={`px-2 py-1 rounded text-xs ${
+              navigationMode === 'free' 
+                ? 'bg-primary/20 text-primary' 
+                : 'bg-muted/20 text-muted-foreground'
+            }`}>
+              {navigationMode === 'orbit' ? 'Orbit' : 'Free Flight'}
+            </span>
+          </div>
+          {motionSettings.reduceMotion && (
+            <div className="flex items-center justify-between text-xs mt-1">
+              <span>Motion:</span>
+              <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400">
+                Reduced
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -319,6 +350,13 @@ const SpaceScene: React.FC<SpaceSceneProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Motion Settings Panel */}
+      <MotionSettingsPanel
+        isOpen={showMotionSettings}
+        onClose={() => setShowMotionSettings(false)}
+        onSettingsChange={handleMotionSettingsChange}
+      />
    </>
   );
 };

@@ -53,6 +53,8 @@ All colors MUST be HSL.
     --transition-cosmic: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --glow-animation: 0 0 20px hsl(var(--cosmic-glow) / 0.5);
     
+
+    
     --radius: 12px;
 
     /* Sidebar colors adjusted for space theme */
@@ -154,6 +156,38 @@ All colors MUST be HSL.
   .touch-control {
     @apply transition-all duration-200 hover:scale-105 active:scale-95;
   }
+  
+  /* Enhanced Visual Effects */
+  .starfield-glow {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  }
+  
+  .navigation-indicator {
+    @apply relative overflow-hidden;
+  }
+  
+  .navigation-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: sweep 2s infinite;
+  }
+  
+  .cosmic-border {
+    border: 1px solid;
+    border-image: linear-gradient(45deg, 
+      hsl(var(--primary)) 0%, 
+      hsl(var(--accent)) 25%, 
+      hsl(var(--primary)) 50%, 
+      hsl(var(--accent)) 75%, 
+      hsl(var(--primary)) 100%
+    ) 1;
+    animation: border-flow 3s linear infinite;
+  }
 }
 
 @layer utilities {
@@ -176,4 +210,20 @@ All colors MUST be HSL.
 @keyframes orbit {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes border-flow {
+  0% { border-image-source: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary))); }
+  50% { border-image-source: linear-gradient(45deg, hsl(var(--accent)), hsl(var(--primary)), hsl(var(--accent))); }
+  100% { border-image-source: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary))); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
